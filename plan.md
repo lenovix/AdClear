@@ -43,5 +43,3 @@ Tahap 4: UI & State Management (Popup):
 
 Tahap 5: Pengelolaan Aturan & Polishing:
 - Zapper Manager: Buat halaman sederhana di popup/options untuk melihat dan menghapus daftar elemen yang pernah di-zap.
-- Code Refactoring: Merapikan struktur kode, menambahkan komentar penjelasan di fungsi-fungsi penting, dan memperbaiki edge cases.
-- Dokumentasi Portofolio: Tulis file README.md yang lengkap (fitur, tech stack, cara instalasi, dan screenshot/GIF demo).
