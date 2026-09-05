@@ -107,11 +107,11 @@ function getUniqueSelector(el) {
 }
 
 // Mendengarkan trigger dari popup.js
+// Tambahkan aksi ini pada runtime listener di bagian bawah content.js:
 chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "START_ZAPPER") {
     enableZapMode();
   } else if (request.action === "RESET_ZAPPER") {
-    // Cari elemen yang pernah di-hide via Zapper dan tampilkan kembali
     chrome.storage.local.get([currentDomain], (result) => {
       const savedSelectors = result[currentDomain] || [];
       savedSelectors.forEach((selector) => {
@@ -119,6 +119,11 @@ chrome.runtime.onMessage.addListener((request) => {
           el.style.removeProperty("display");
         });
       });
+    });
+  } else if (request.action === "REMOVE_SINGLE_SELECTOR") {
+    // Tampilkan kembali hanya elemen spesifik yang dihapus dari list
+    document.querySelectorAll(request.selector).forEach((el) => {
+      el.style.removeProperty("display");
     });
   }
 });

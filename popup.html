@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <style>
       body {
-        width: 230px;
+        width: 250px;
         font-family:
           system-ui,
           -apple-system,
@@ -62,7 +62,7 @@
         border: none;
         border-radius: 6px;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 12px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -78,6 +78,14 @@
         background: #dc2626;
       }
 
+      .btn-list {
+        background: #3b82f6;
+        color: white;
+      }
+      .btn-list:hover {
+        background: #2563eb;
+      }
+
       .btn-reset {
         background: #e2e8f0;
         color: #334155;
@@ -85,9 +93,64 @@
       .btn-reset:hover {
         background: #cbd5e1;
       }
-      .btn-reset:disabled {
+      .btn-reset:disabled,
+      .btn-list:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+      }
+
+      /* Panel List Elemen */
+      .list-container {
+        display: none;
+        margin-top: 12px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 8px;
+        max-height: 140px;
+        overflow-y: auto;
+      }
+      .list-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 6px;
+      }
+      .item-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 6px;
+        background: #f1f5f9;
+        border-radius: 4px;
+        margin-bottom: 4px;
+        font-size: 11px;
+        font-family: monospace;
+        color: #334155;
+      }
+      .selector-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 160px;
+      }
+      .btn-del-item {
+        background: none;
+        border: none;
+        color: #ef4444;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 0 4px;
+        font-size: 12px;
+        width: auto;
+      }
+      .btn-del-item:hover {
+        color: #b91c1c;
       }
     </style>
   </head>
@@ -104,9 +167,14 @@
 
     <div class="actions">
       <button id="zapBtn" class="btn-zap">⚡ Zap Element</button>
-      <button id="resetBtn" class="btn-reset">
-        ↩️ Reset Element Situs Ini
-      </button>
+      <button id="toggleListBtn" class="btn-list">📋 Lihat List Elemen</button>
+      <button id="resetBtn" class="btn-reset">↩️ Reset Semua Elemen</button>
+    </div>
+
+    <!-- Panel List Elemen Tersimpan -->
+    <div id="listContainer" class="list-container">
+      <div class="list-title">ELEMEN TERKUNCI:</div>
+      <ul id="itemList" class="item-list"></ul>
     </div>
 
     <script src="popup.js"></script>
