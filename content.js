@@ -1,6 +1,6 @@
 const currentDomain = window.location.hostname;
+let isProtectionEnabled = true;
 
-// === 1. Pembersih DOM Otomatis & Aturan Tersimpan ===
 const commonAdSelectors = [
   ".adsbygoogle",
   '[id^="div-gpt-ad"]',
@@ -10,15 +10,20 @@ const commonAdSelectors = [
 ];
 
 function applyAllRules() {
-  // Sembunyikan iklan umum
-  commonAdSelectors.forEach((selector) => {
-    document.querySelectorAll(selector).forEach((el) => {
-      el.style.setProperty("display", "none", "important");
-    });
-  });
+  chrome.storage.local.get(["whitelistedDomains", currentDomain], (result) => {
+    const whitelist = result.whitelistedDomains || [];
+    isProtectionEnabled = !whitelist.includes(currentDomain);
 
-  // Terapkan aturan Zapper tersimpan di domain ini
-  chrome.storage.local.get([currentDomain], (result) => {
+    if (!isProtectionEnabled) return;
+
+    // Sembunyikan iklan umum
+    commonAdSelectors.forEach((selector) => {
+      document.querySelectorAll(selector).forEach((el) => {
+        el.style.setProperty("display", "none", "important");
+      });
+    });
+
+    // Terapkan aturan Zapper tersimpan
     const savedSelectors = result[currentDomain] || [];
     savedSelectors.forEach((selector) => {
       document.querySelectorAll(selector).forEach((el) => {
@@ -35,10 +40,11 @@ if (document.body) {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
-// === 2. Logika Element Zapper ===
+// === Logika Zapper & Listener ===
 let isZapModeActive = false;
 
 function enableZapMode() {
+  if (!isProtectionEnabled) return;
   isZapModeActive = true;
   document.body.style.cursor = "crosshair";
 
@@ -79,7 +85,6 @@ function handleClick(e) {
   targetEl.style.outline = "";
   targetEl.style.setProperty("display", "none", "important");
 
-  // Simpan ke storage
   chrome.storage.local.get([currentDomain], (result) => {
     const existingSelectors = result[currentDomain] || [];
     if (!existingSelectors.includes(selector)) {
@@ -106,8 +111,7 @@ function getUniqueSelector(el) {
   return el.tagName.toLowerCase();
 }
 
-// Mendengarkan trigger dari popup.js
-// Tambahkan aksi ini pada runtime listener di bagian bawah content.js:
+// Runtime Listeners
 chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "START_ZAPPER") {
     enableZapMode();
@@ -121,9 +125,11 @@ chrome.runtime.onMessage.addListener((request) => {
       });
     });
   } else if (request.action === "REMOVE_SINGLE_SELECTOR") {
-    // Tampilkan kembali hanya elemen spesifik yang dihapus dari list
     document.querySelectorAll(request.selector).forEach((el) => {
       el.style.removeProperty("display");
     });
+  } else if (request.action === "TOGGLE_WHITELIST") {
+    isProtectionEnabled = request.isEnabled;
+    window.location.reload(); // Refresh halaman saat toggle diubah
   }
 });
