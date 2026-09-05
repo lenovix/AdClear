@@ -151,5 +151,32 @@
       "urlFilter": "*google-analytics.com/g/collect*",
       "resourceTypes": ["script", "xmlhttprequest", "ping"]
     }
+  },
+  {
+    "id": 18,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*tsyndicate.com*",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "ping"]
+    }
+  },
+  {
+    "id": 19,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*pemsrv.com*",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "ping"]
+    }
+  },
+  {
+    "id": 20,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*z?z=*&sub=*",
+      "resourceTypes": ["script", "xmlhttprequest", "ping"]
+    }
   }
 ]
