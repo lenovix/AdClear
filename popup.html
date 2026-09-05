@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        width: 230px;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        padding: 14px;
+        margin: 0;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      .header {
+        margin-bottom: 12px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 8px;
+      }
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .status {
+        font-size: 11px;
+        color: #10b981;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+
+      .stats-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+      .stats-count {
+        font-size: 20px;
+        font-weight: 800;
+        color: #3b82f6;
+      }
+      .stats-label {
+        font-size: 11px;
+        color: #64748b;
+        margin-top: 2px;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      button {
+        width: 100%;
+        padding: 9px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: background 0.2s;
+      }
+      .btn-zap {
+        background: #ef4444;
+        color: white;
+      }
+      .btn-zap:hover {
+        background: #dc2626;
+      }
+
+      .btn-reset {
+        background: #e2e8f0;
+        color: #334155;
+      }
+      .btn-reset:hover {
+        background: #cbd5e1;
+      }
+      .btn-reset:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h3>AdClear</h3>
+      <div class="status">● Protective Engine Active</div>
+    </div>
+
+    <div class="stats-card">
+      <div id="zapCount" class="stats-count">0</div>
+      <div class="stats-label">Elemen Di-zap pada Situs Ini</div>
+    </div>
+
+    <div class="actions">
+      <button id="zapBtn" class="btn-zap">⚡ Zap Element</button>
+      <button id="resetBtn" class="btn-reset">
+        ↩️ Reset Element Situs Ini
+      </button>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

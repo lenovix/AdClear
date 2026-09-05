@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "AdClear - Ad Blocker & Element Zapper",
+  "short_name": "AdClear",
+  "version": "1.0.0",
+  "description": "Ekstensi pemblokir iklan ringan dengan pemfilteran jaringan dan fitur Element Zapper.",
+  "permissions": ["declarativeNetRequest", "storage", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AdClear Control Panel"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
